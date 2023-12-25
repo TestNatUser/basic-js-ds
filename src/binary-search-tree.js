@@ -17,60 +17,45 @@ class BinarySearchTree {
 
   add(data) {
     let newNode = new Node(data);
-    if(!this.treeRoot){
-       this.treeRoot = newNode;
-    }else{
-       this.addNode(this.treeRoot, newNode);
-    };
- };
-
-  addNode(node, newNode){
-    if(newNode.data < node.data){
-       if(!node.left ){
-          node.left = newNode;
-       }else{
-          this.addNode(node.left, newNode);
-       };
+    if (!this.treeRoot) {
+      this.treeRoot = newNode;
     } else {
-       if(!node.right){
-          node.right = newNode;
-       }else{
-          this.addNode(node.right,newNode);
-       };
+      this.addNode(this.treeRoot, newNode);
+    };
+  };
+
+  addNode(node, newNode) {
+    if (newNode.data < node.data) {
+      if (!node.left) {
+        node.left = newNode;
+      } else {
+        this.addNode(node.left, newNode);
+      };
+    } else {
+      if (!node.right) {
+        node.right = newNode;
+      } else {
+        this.addNode(node.right, newNode);
+      };
     };
   }
 
   has(data) {
-   return this.find(data);
+    return this.find(data);
   }
 
   find(data) {
-    if (this.treeRoot.data === data) {
-      return this.treeRoot;
-    } else if (this.treeRoot.data > data) {
-     let node = this.treeRoot.right;
-     if(node.data===data){
-      return node;
-     }
-     while(node.data!==data){
-      if(node.right||node.left){
-        node = node.right>data ? node.right : node.left;
-        return node;
-      }return null;
-     }
+    let node = this.treeRoot;
+    while (node.data !== data) {
+      if(!node) return null;
+      if (node.data > data) {
+        node = node.left;
+      }
+      else if (node.data < data) {
+        node = node.right;
+      }
     }
-    else if (this.treeRoot.data < data) {
-      let node = this.treeRoot.left;
-      if(node.data===data){
-        return node;
-       }
-     while(node.data!==data){
-      if(node.right||node.left){
-        node = node.right>data ? node.right : node.left;
-        return node;
-      }return null;
-     }
-    }
+    return node;
   }
 
   remove(data) {
