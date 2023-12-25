@@ -41,25 +41,34 @@ class BinarySearchTree {
   }
 
   has(data) {
-    return this.find(data)!==null;
+    return this.find(data)=== null ? false : true;
   }
 
   find(data) {
     let node = this.treeRoot
     while (node.data !== data) {
-      node = data < node.data?
-        node = node.left:
+      node = data < node.data ?
+        node = node.left :
         node = node.right;
-      if (!node) return null; 
-      }
+      if (!node) return null;
+    }
     return node;
   }
 
   remove(data) {
-    let node = this.find(data);
-    node.data = null;
-    node.left = null;
-    node.right = null;
+    const node = this.find(data);
+    if (node) {
+      if (node.left && node.right) {
+        return null;
+      }
+      if (node.left) {
+        return node.right;
+      }
+
+      else if (node.right) {
+        return node.left;
+      }
+    }
   }
 
   min() {
