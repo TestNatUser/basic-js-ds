@@ -41,7 +41,7 @@ class BinarySearchTree {
   }
 
   has(data) {
-   return !this.find(data);
+   return this.find(data);
   }
 
   find(data) {
@@ -50,21 +50,25 @@ class BinarySearchTree {
     } else if (this.treeRoot.data > data) {
      let node = this.treeRoot.right;
      if(node.data===data){
-      return node.data;
+      return node;
      }
      while(node.data!==data){
+      if(node.right||node.left){
         node = node.right>data ? node.right : node.left;
-        return node.data;
+        return node;
+      }return null;
      }
     }
     else if (this.treeRoot.data < data) {
       let node = this.treeRoot.left;
       if(node.data===data){
-        return node.data;
+        return node;
        }
      while(node.data!==data){
+      if(node.right||node.left){
         node = node.right>data ? node.right : node.left;
-        return node.data;
+        return node;
+      }return null;
      }
     }
   }
