@@ -17,37 +17,49 @@ class BinarySearchTree {
 
   add(data) {
     let newNode = new Node(data);
-    if (!this.treeRoot) {
-      return this.treeRoot = newNode;
-    } else if (this.treeRoot.data > data) {
-      return this.add(this.right);
-    } else if (this.treeRoot.data < data) {
-      return this.add(this.left);
-    }
+    if(!this.treeRoot){
+       this.treeRoot = newNode;
+    }else{
+       this.addNode(this.treeRoot, newNode);
+    };
+ };
+
+  addNode(node, newNode){
+    if(newNode.data < node.data){
+       if(!node.left ){
+          node.left = newNode;
+       }else{
+          this.addNode(node.left, newNode);
+       };
+    } else {
+       if(!node.right){
+          node.right = newNode;
+       }else{
+          this.addNode(node.right,newNode);
+       };
+    };
   }
 
   has(data) {
-    if (this.data === data) {
-      return true;
-    } else if (!this.data) {
-      return false;
-    } else if (this.data > data) {
-      return this.has(this.right);
-    } else if (this.data < data) {
-      return this.has(this.left);
-    }
+   return this.find(data);
   }
 
   find(data) {
     if (this.treeRoot.data === data) {
       return this.treeRoot;
     } else if (this.treeRoot.data > data) {
-      if(this.treeRoot.right>data){
-        return this.find()
-      }
+     let node = this.treeRoot.right;
+     while(node.data!==data){
+        node = node.right>data ? node.right : node.left;
+        return node.data;
+     }
     }
     else if (this.treeRoot.data < data) {
-      return this.find(this.left)
+      let node = this.treeRoot.left;
+     while(node.data!==data){
+        node = node.right>data ? node.right : node.left;
+        return node.data;
+     }
     }
   }
 
@@ -59,18 +71,19 @@ class BinarySearchTree {
   }
 
   min() {
-    if (this.treeRoot.left === null)
-      return this;
-    else
-      return this.find(this.treeRoot.left);
+    let node = this.treeRoot;
+    while (node.left) {
+      node = node.left;
+    }
+    return node;
   }
 
   max() {
-    if (this.right === null)
-      return this;
-    else {
-      return this.find(this.right);
+    let node = this.treeRoot;
+    while (node.right) {
+      node = node.right;
     }
+    return node;
   }
 }
 
