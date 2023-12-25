@@ -41,20 +41,17 @@ class BinarySearchTree {
   }
 
   has(data) {
-    return this.find(data);
+    return this.find(data)!==null;
   }
 
   find(data) {
-    let node = this.treeRoot;
+    let node = this.treeRoot
     while (node.data !== data) {
-      if(!node) return null;
-      if (node.data > data) {
-        node = node.left;
-      }
-      else if (node.data < data) {
+      node = data < node.data?
+        node = node.left:
         node = node.right;
+      if (!node) return null; 
       }
-    }
     return node;
   }
 
