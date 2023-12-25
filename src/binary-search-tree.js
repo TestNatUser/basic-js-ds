@@ -41,7 +41,7 @@ class BinarySearchTree {
   }
 
   has(data) {
-   return this.find(data);
+   return !this.find(data);
   }
 
   find(data) {
@@ -49,6 +49,9 @@ class BinarySearchTree {
       return this.treeRoot;
     } else if (this.treeRoot.data > data) {
      let node = this.treeRoot.right;
+     if(node.data===data){
+      return node.data;
+     }
      while(node.data!==data){
         node = node.right>data ? node.right : node.left;
         return node.data;
@@ -56,6 +59,9 @@ class BinarySearchTree {
     }
     else if (this.treeRoot.data < data) {
       let node = this.treeRoot.left;
+      if(node.data===data){
+        return node.data;
+       }
      while(node.data!==data){
         node = node.right>data ? node.right : node.left;
         return node.data;
@@ -67,7 +73,7 @@ class BinarySearchTree {
     let node = this.find(data);
     node.data = null;
     node.left = null;
-    node.rigt = null;
+    node.right = null;
   }
 
   min() {
@@ -75,7 +81,7 @@ class BinarySearchTree {
     while (node.left) {
       node = node.left;
     }
-    return node;
+    return node.data;
   }
 
   max() {
@@ -83,7 +89,7 @@ class BinarySearchTree {
     while (node.right) {
       node = node.right;
     }
-    return node;
+    return node.data;
   }
 }
 
